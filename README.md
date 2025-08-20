@@ -3,10 +3,6 @@
 This repository contains the source code to RNAinformer: Generative RNA Design with Tertiary Interactions.
 
 
-Download the repository and extract it.
-```
-cd RNA-design-7204
-```
 ### Install virtual environment
 
 
