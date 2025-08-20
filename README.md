@@ -2,6 +2,13 @@
 
 This repository contains the source code to RNAinformer: Generative RNA Design with Tertiary Interactions.
 
+The function of an RNA molecule depends on its structure and a strong structure-to-function relationship is already achieved on the secondary structure level of RNA.
+Therefore, a common approach to RNA design is secondary structure based inverse RNA folding, where the goal of the design algorithm is to invert a RNA secondary structure prediction algorithm.
+However, existing RNA design methods cannot invert all folding algorithms because they cannot represent all types of base interactions.
+In this work, we propose RNAinformer, a novel transformer based approach to the inverse RNA folding problem.
+Leveraging axial-attention, we directly model the secondary structure input represented as an adjacency matrix in a 2D latent space, which allows us to invert all existing secondary structure prediction algorithms.
+Consequently, RNAinformer is the first model capable of designing RNAs from secondary structures with all kinds of nucleotide interactions, including non-canonical base pairs and tertiary interactions like pseudoknots and base multiplets.
+Our comprehensive evaluations at different levels of secondary structure complexity, across multiple RNA design tasks, including conditional generation with desired GC-contents and involving multiple RNA folding algorithms, reveal RNAinformer's outstanding RNA design capabilities.
 
 ### Install virtual environment
 
