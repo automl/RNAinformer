@@ -66,5 +66,5 @@ python inference.py --seed 9647359 --path runs/syn_pdb/version_0/ --flash False
 ```
 
 ### Contribution
-This repository is a copy of the original source code.
-The original source code is under active development and available at <https://github.com/pilar12/RNA-design>.
+This repository is a copy of the original source code for reasons of maintenance.
+The original source code is available at <https://github.com/pilar12/RNA-design>.
