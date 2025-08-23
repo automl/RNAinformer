@@ -64,3 +64,7 @@ Use --flash False if Flash attention is not installed
 ```
 python inference.py --seed 9647359 --path runs/syn_pdb/version_0/ --flash False
 ```
+
+### Contribution
+This repository is a copy of the original source code.
+The original source code is under active development and available at <https://github.com/pilar12/RNA-design>.
