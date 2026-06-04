@@ -1,1 +1,9 @@
 /runs.tar.xz
+/data/
+/runs/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd

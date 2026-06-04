@@ -106,17 +106,6 @@ dependencies:
       - networkx==3.1
       - nltk==3.8.1
       - numpy==1.25.2
-      - nvidia-cublas-cu11==11.10.3.66
-      - nvidia-cuda-cupti-cu11==11.7.101
-      - nvidia-cuda-nvrtc-cu11==11.7.99
-      - nvidia-cuda-runtime-cu11==11.7.99
-      - nvidia-cudnn-cu11==8.5.0.96
-      - nvidia-cufft-cu11==10.9.0.58
-      - nvidia-curand-cu11==10.2.10.91
-      - nvidia-cusolver-cu11==11.4.0.1
-      - nvidia-cusparse-cu11==11.7.4.91
-      - nvidia-nccl-cu11==2.14.3
-      - nvidia-nvtx-cu11==11.7.91
       - oauthlib==3.2.2
       - omegaconf==2.3.0
       - ordered-set==4.1.0
@@ -167,12 +156,14 @@ dependencies:
       - threadpoolctl==3.2.0
       - tomli==2.0.1
       - toolz==0.12.1
-      - torch==2.0.1
+      # torch>=2.1 is required: the model calls
+      # F.scaled_dot_product_attention(..., scale=...), and the `scale` kwarg
+      # was only added in torch 2.1 (it raises TypeError on 2.0.x).
+      - torch==2.1.2
       - torch-tb-profiler==0.4.3
       - torchmetrics==1.0.2
       - tqdm==4.65.0
       - traitlets==5.9.0
-      - triton==2.0.0
       - typing-extensions==4.7.1
       - tzdata==2023.3
       - urllib3==1.26.16
@@ -185,4 +176,3 @@ dependencies:
       - werkzeug==2.3.6
       - yarl==1.9.2
       - zipp==3.17.0
-
