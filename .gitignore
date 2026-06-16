@@ -1,6 +1,7 @@
 /runs.tar.xz
 /data/
 /runs/
+/export_plaintext/
 
 # Python cache files
 __pycache__/
