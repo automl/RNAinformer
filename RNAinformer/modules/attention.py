@@ -117,7 +117,7 @@ class MultiheadSelfAttention(nn.Module):
  
         # Determine value outputs
         with torch.backends.cuda.sdp_kernel(enable_flash=True):
-            values = F.scaled_dot_product_attention(q, k, v, attn_mask=mask, dropout_p=self.p_dropout, scale=self.scale)            
+            values = F.scaled_dot_product_attention(q, k, v, attn_mask=mask, dropout_p=self.p_dropout)            
         values = values.permute(0, 2, 1, 3) # [Batch, SeqLen, Head, Dims]
         values = values.reshape(batch_size, seq_length, self.embed_dim)
         o = self.o_proj(values)
@@ -168,7 +168,7 @@ class MultiheadCrossAttention(nn.Module):
 
         # Determine value outputs
         with torch.backends.cuda.sdp_kernel(enable_flash=True):
-            values = F.scaled_dot_product_attention(q, k, v, attn_mask=mask,dropout_p=self.p_dropout, scale=self.scale)
+            values = F.scaled_dot_product_attention(q, k, v, attn_mask=mask,dropout_p=self.p_dropout)
         values = values.permute(0, 2, 1, 3) # [Batch, SeqLen, Head, Dims]
         values = values.reshape(batch_size, seq_length, self.embed_dim)
         o = self.o_proj(values)

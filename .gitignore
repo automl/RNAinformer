@@ -1,1 +1,17 @@
+# large data archives (distributed via Zenodo/Dropbox, not git)
 /runs.tar.xz
+/data.tar.xz
+/runs/
+/data/
+
+# python caches
+__pycache__/
+*.pyc
+*.pyo
+
+# scratch / logs
+_*.log
+_*.flag
+_*.sh
+_*.txt
+*.out

@@ -1,69 +1,92 @@
 # RNAinformer
 
-This repository contains the source code to RNAinformer: Generative RNA Design with Tertiary Interactions.
+**RNAinformer: Generative RNA Design from Contact Maps**
 
-The function of an RNA molecule depends on its structure and a strong structure-to-function relationship is already achieved on the secondary structure level of RNA.
-Therefore, a common approach to RNA design is secondary structure based inverse RNA folding, where the goal of the design algorithm is to invert a RNA secondary structure prediction algorithm.
-However, existing RNA design methods cannot invert all folding algorithms because they cannot represent all types of base interactions.
-In this work, we propose RNAinformer, a novel transformer based approach to the inverse RNA folding problem.
-Leveraging axial-attention, we directly model the secondary structure input represented as an adjacency matrix in a 2D latent space, which allows us to invert all existing secondary structure prediction algorithms.
-Consequently, RNAinformer is the first model capable of designing RNAs from secondary structures with all kinds of nucleotide interactions, including non-canonical base pairs and tertiary interactions like pseudoknots and base multiplets.
-Our comprehensive evaluations at different levels of secondary structure complexity, across multiple RNA design tasks, including conditional generation with desired GC-contents and involving multiple RNA folding algorithms, reveal RNAinformer's outstanding RNA design capabilities.
+This repository contains the source code for RNAinformer, a generative model for inverse
+RNA folding from contact-map representations.
+
+## Abstract
+
+**Background:**
+Inverse RNA folding designs sequences that realize a target RNA structure and is a core task in computational RNA engineering. Many design methods use dot-bracket encodings, which work well for nested base pair structures but do not naturally represent the full contact topologies produced by modern RNA structure predictors. Contact maps can encode pseudoknots, non-canonical contacts, and base multiplets in a single matrix representation. This leaves a representation gap: RNA structure prediction often produces contact maps, while RNA design methods largely remain tied to string based structure inputs.
+
+**Results:**
+We present RNAinformer, a generative model for RNA sequence design from contact maps. RNAinformer uses an encoder-decoder transformer with axial-attention to process binary nucleotide interaction matrices and supports positional sequence constraints and global GC content conditioning. To reduce homology driven overestimation, RNAinformer is trained on synthetic Rfam derived data with family and clan separation. We evaluate the model from canonical nested inverse folding to pseudoknotted and experimentally derived contact map design tasks. In the nested setting, RNAinformer outperforms learning based baselines under a fixed sampling budget, while the specialized search method SAMFEO achieves the highest solved rate. On pseudoknotted targets, RNAinformer solves 39.1% of the tasks with a single candidate design compared with 15.6% for antaRNA, an established pseudoknot capable baseline. For experimentally derived contact maps containing heterogeneous interactions, RNAinformer generates valid designs for a subset of targets and achieves high best candidate binary contact map agreement. Designed sequences also show consistent agreement across independent secondary structure predictors.
+
+**Conclusions:**
+RNAinformer extends RNA design from string encodings to contact map representations. The same model interface handles nested structures, pseudoknots, constrained sequence design, and contact maps containing non-canonical contacts and degree-greater-than-one topologies. These results support contact maps as a useful representation for connecting RNA structure prediction and sequence design.
 
 ### Install virtual environment
 
-
 ```
 conda env create -f environment.yml
-
 conda activate rnadesign
-
 ```
-The Flash Attention package currently requires an Ampere, Ada, or Hopper GPU (e.g., A100, RTX 3090, RTX 4090, H100). To install Falsh-attn.
-
+The Flash Attention package currently requires an Ampere, Ada, or Hopper GPU (e.g., A100,
+RTX 3090, RTX 4090, H100). To install Flash-Attention:
 ```
 pip install -U --no-cache-dir flash-attn==2.3.4
 ```
-### Datasets
-To get the training and test sets download and unzip data from https://www.dropbox.com/scl/fi/yaxvlsloht21i7bho2tim/data.tar.xz?rlkey=jmxqbjjcmbumt08hk2tbqxvgg&st=k9jfe7iz&dl=0
 
+### Datasets
+Download and unzip the training and test sets. Archived (citable) copy on Zenodo:
+**DOI: [insert data/results DOI]**. Convenience mirror (Dropbox):
 ```
-wget -O data.tar.xz https://www.dropbox.com/scl/fi/yaxvlsloht21i7bho2tim/data.tar.xz?rlkey=j
-mxqbjjcmbumt08hk2tbqxvgg&st=k9jfe7iz&dl=0
+wget -O data.tar.xz "https://www.dropbox.com/scl/fi/yaxvlsloht21i7bho2tim/data.tar.xz?rlkey=jmxqbjjcmbumt08hk2tbqxvgg&st=k9jfe7iz&dl=1"
 tar -xvf data.tar.xz
 rm data.tar.xz
 ```
 
 ### Models and predictions
-To get the models and designed predictions download and unzip data from https://www.dropbox.com/scl/fi/4ti5cn1zuct5u37rzkpod/runs.tar.xz?rlkey=jfu6trrvnr9d118mrsecgquzp&st=eccnnqy8&dl=0
-
+Download and unzip the trained models and generated predictions. Archived (citable) copy on
+Zenodo: **DOI: [insert data/results DOI]**. Convenience mirror (Dropbox):
 ```
-wget -O runs.tar.xz https://www.dropbox.com/scl/fi/4ti5cn1zuct5u37rzkpod/runs.tar.xz?rlkey=jfu6tr
-rvnr9d118mrsecgquzp&st=eccnnqy8&dl=0
+wget -O runs.tar.xz "https://www.dropbox.com/scl/fi/4ti5cn1zuct5u37rzkpod/runs.tar.xz?rlkey=jfu6trrvnr9d118mrsecgquzp&st=eccnnqy8&dl=1"
 tar -xvf runs.tar.xz
 rm runs.tar.xz
 ```
 
-### Evaluate 
-Evaluation metrics have been provided for all model and competitors in respective metrics.csv files
-To run all evaluations again
+### Reproducing the manuscript results
+Precomputed metrics are provided in the respective `metrics.csv` files. To recompute all
+evaluations from the predictions, there are two equivalent routes.
 
+**Route A — repository/Dropbox archive (native `runs/` layout).**
+After extracting `data.tar.xz` and `runs.tar.xz` as above (so `./data` and `./runs` exist):
 ```
-bash run_evaluation.sh
+bash run_evaluations.sh
 ```
+
+**Route B — Zenodo record (human-readable browse layout).**
+The Zenodo `predictions` archive stores predictions in a human-readable browse layout
+(`predictions/rnainformer/<model>/version_*/...` plus `predictions/baselines/...`).
+`adapt_to_eval_layout.sh` maps that layout onto the `runs/` layout expected by
+`run_evaluations.sh` using symlinks only (no copies):
+```
+# after downloading + extracting the Zenodo predictions/ and datasets/ folders:
+bash adapt_to_eval_layout.sh predictions runs
+cp -r datasets data          # or: ln -s datasets data
+bash run_evaluations.sh
+```
+Both routes produce the same reported metrics.
 
 ### Inference on test sets
 ```
 python inference.py --seed 9647359 --path path/to/model/folder/
 ```
-Eg.
+E.g.:
 ```
 python inference.py --seed 9647359 --path runs/syn_pdb/version_0/
 ```
-Use --flash False if Flash attention is not installed
+Use `--flash False` if Flash Attention is not installed:
 ```
 python inference.py --seed 9647359 --path runs/syn_pdb/version_0/ --flash False
 ```
+
+### Availability
+- Source code: this repository, Apache-2.0 license. Archived version for the manuscript:
+  Zenodo **DOI: [insert code DOI]**.
+- Data, trained models, generated candidates, prediction outputs, configs, and metric
+  files: Zenodo **DOI: [insert data/results DOI]**.
 
 ### Contribution
 This repository is a copy of the original source code for reasons of maintenance.
