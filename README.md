@@ -30,7 +30,7 @@ pip install -U --no-cache-dir flash-attn==2.3.4
 
 ### Datasets
 Download and unzip the training and test sets. Archived (citable) copy on Zenodo:
-**DOI: [insert data/results DOI]**. Convenience mirror (Dropbox):
+**DOI: [10.5281/zenodo.21746333](https://doi.org/10.5281/zenodo.21746333)**. Convenience mirror (Dropbox):
 ```
 wget -O data.tar.xz "https://www.dropbox.com/scl/fi/yaxvlsloht21i7bho2tim/data.tar.xz?rlkey=jmxqbjjcmbumt08hk2tbqxvgg&st=k9jfe7iz&dl=1"
 tar -xvf data.tar.xz
@@ -39,7 +39,7 @@ rm data.tar.xz
 
 ### Models and predictions
 Download and unzip the trained models and generated predictions. Archived (citable) copy on
-Zenodo: **DOI: [insert data/results DOI]**. Convenience mirror (Dropbox):
+Zenodo: **DOI: [10.5281/zenodo.21746586](https://doi.org/10.5281/zenodo.21746586)**. Convenience mirror (Dropbox):
 ```
 wget -O runs.tar.xz "https://www.dropbox.com/scl/fi/4ti5cn1zuct5u37rzkpod/runs.tar.xz?rlkey=jfu6trrvnr9d118mrsecgquzp&st=eccnnqy8&dl=1"
 tar -xvf runs.tar.xz
@@ -84,9 +84,9 @@ python inference.py --seed 9647359 --path runs/syn_pdb/version_0/ --flash False
 
 ### Availability
 - Source code: this repository, Apache-2.0 license. Archived version for the manuscript:
-  Zenodo **DOI: [insert code DOI]**.
+  Zenodo **DOI: [10.5281/zenodo.21747282](https://doi.org/10.5281/zenodo.21747282)**.
 - Data, trained models, generated candidates, prediction outputs, configs, and metric
-  files: Zenodo **DOI: [insert data/results DOI]**.
+  files: Zenodo **DOIs: datasets [10.5281/zenodo.21746333](https://doi.org/10.5281/zenodo.21746333); trained models, candidates, and predictions [10.5281/zenodo.21746586](https://doi.org/10.5281/zenodo.21746586)**.
 
 ### Contribution
 This repository is a copy of the original source code for reasons of maintenance.
