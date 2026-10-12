@@ -86,7 +86,7 @@ python inference.py --seed 9647359 --path runs/syn_pdb/version_0/ --flash False
 - Source code: this repository, Apache-2.0 license. Archived version for the manuscript:
   Zenodo **DOI: [10.5281/zenodo.21747282](https://doi.org/10.5281/zenodo.21747282)**.
 - Data, trained models, generated candidates, prediction outputs, configs, and metric
-  files: Zenodo **DOIs: datasets [10.5281/zenodo.21746333](https://doi.org/10.5281/zenodo.21746333); trained models, candidates, and predictions [10.5281/zenodo.21746585](https://doi.org/10.5281/zenodo.21746586)**.
+  files: Zenodo **DOIs: datasets [10.5281/zenodo.21746333](https://doi.org/10.5281/zenodo.21746333); trained models, candidates, and predictions [10.5281/zenodo.21746586](https://doi.org/10.5281/zenodo.21746586)**.
 
 ### Contribution
 This repository is a copy of the original source code for reasons of maintenance.
